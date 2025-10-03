@@ -1,0 +1,52 @@
+steps:
+  # Step 1: Build frontend React app
+  - name: 'node:18-alpine'
+    workingDir: 'frontend'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        npm install
+        npm run build
+
+  # Step 2: Copy frontend build to backend public folder
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args:
+      - '-m'
+      - 'cp'
+      - '-r'
+      - 'frontend/build/*'
+      - 'backend/public/'
+
+  # Step 3: Build backend Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/esimmyanmar/esim-myanmar-backend:$SHORT_SHA', 'backend']
+
+  # Step 4: Push Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/esimmyanmar/esim-myanmar-backend:$SHORT_SHA']
+
+  # Step 5: Deploy backend service to Cloud Run in us-west1
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      [
+        'run', 'deploy', 'esim-myanmar-backend',
+        '--image', 'gcr.io/esimmyanmar/esim-myanmar-backend:$SHORT_SHA',
+        '--region', 'us-west1',
+        '--platform', 'managed',
+        '--allow-unauthenticated',
+        '--quiet',
+      ]
+
+  # Step 6: Deploy SEO files to GCS bucket (ensure bucket name correct)
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args: ['cp', 'frontend/public/robots.txt', 'gs://static.esim.com.mm/robots.txt']
+
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args: ['cp', 'frontend/public/sitemap.xml', 'gs://static.esim.com.mm/sitemap.xml']
+
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args: ['cp', 'frontend/public/feed.atom', 'gs://static.esim.com.mm/feed.atom']
+
+timeout: 900s
