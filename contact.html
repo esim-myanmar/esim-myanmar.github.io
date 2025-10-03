@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - eSIM Myanmar</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="canvas-container"></div>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" class="logo-text">eSIM Myanmar</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="compatibility.html" class="nav-link">Compatibility</a></li>
+                <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
+                <li><a href="faq.html" class="nav-link">FAQ</a></li>
+                <li><a href="partners.html" class="nav-link">Partners</a></li>
+                <li><a href="contact.html" class="nav-link active">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <div class="glass-panel hero-panel">
+                    <h1>Contact Our Team</h1>
+                    <p>Get in touch with Myanmar's leading eSIM technology experts</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <div class="container">
+                <div class="contact-layout">
+                    <div class="contact-form-container">
+                        <div class="glass-panel contact-form-panel">
+                            <h2>Send Us a Message</h2>
+                            <form class="contact-form" id="contactForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="firstName">First Name</label>
+                                        <input type="text" id="firstName" name="firstName" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastName">Last Name</label>
+                                        <input type="text" id="lastName" name="lastName" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" name="phone">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="company">Company (Optional)</label>
+                                    <input type="text" id="company" name="company">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="inquiry">Inquiry Type</label>
+                                    <select id="inquiry" name="inquiry" required>
+                                        <option value="">Select an option</option>
+                                        <option value="general">General Information</option>
+                                        <option value="technical">Technical Support</option>
+                                        <option value="business">Business Partnership</option>
+                                        <option value="enterprise">Enterprise Solutions</option>
+                                        <option value="billing">Billing & Accounts</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="message">Message</label>
+                                    <textarea id="message" name="message" rows="5" required placeholder="Please describe your inquiry in detail..."></textarea>
+                                </div>
+                                
+                                <button type="submit" class="btn-primary form-submit">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-container">
+                        <div class="glass-panel contact-info-panel">
+                            <h3>Get In Touch</h3>
+                            <div class="contact-methods">
+                                <div class="contact-method">
+                                    <div class="method-icon">Email</div>
+                                    <div class="method-details">
+                                        <h4>Email Support</h4>
+                                        <p>info@esim.com.mm</p>
+                                        <span class="response-time">Response within 2 hours</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="contact-method">
+                                    <div class="method-icon">Phone</div>
+                                    <div class="method-details">
+                                        <h4>Phone Support</h4>
+                                        <p>09650000172</p>
+                                        <span class="response-time">Available 24/7</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="contact-method">
+                                    <div class="method-icon">Social</div>
+                                    <div class="method-details">
+                                        <h4>Social Media</h4>
+                                        <p>@eSIMMyanmarr</p>
+                                        <span class="response-time">Follow for updates</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel business-hours-panel">
+                            <h3>Business Hours</h3>
+                            <div class="hours-list">
+                                <div class="hours-item">
+                                    <span class="day">Monday - Friday</span>
+                                    <span class="time">9:00 AM - 6:00 PM</span>
+                                </div>
+                                <div class="hours-item">
+                                    <span class="day">Saturday</span>
+                                    <span class="time">9:00 AM - 1:00 PM</span>
+                                </div>
+                                <div class="hours-item">
+                                    <span class="day">Sunday</span>
+                                    <span class="time">Emergency Support Only</span>
+                                </div>
+                            </div>
+                            
+                            <div class="emergency-note">
+                                <h4>Emergency Support</h4>
+                                <p>For critical technical issues, our emergency support team is available 24/7 via phone and email.</p>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel location-panel">
+                            <h3>Office Location</h3>
+                            <div class="location-info">
+                                <p>eSIM Myanmar Headquarters</p>
+                                <p>Digital Technology Center</p>
+                                <p>Yangon, Myanmar</p>
+                            </div>
+                            
+                            <div class="map-placeholder">
+                                <div class="map-content">
+                                    <h4>Interactive Map</h4>
+                                    <p>Visit our office for in-person consultations and technical demonstrations</p>
+                                    <button class="btn-secondary map-btn">View Directions</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>eSIM Myanmar</h3>
+                    <p>Leading Myanmar's digital connectivity revolution with advanced eSIM technology solutions.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact Information</h4>
+                    <div class="contact-info">
+                        <p>Email: info@esim.com.mm</p>
+                        <p>Phone: 09650000172</p>
+                        <p>Social: @eSIMMyanmarr</p>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <div class="footer-links">
+                        <a href="privacy.html">Privacy Policy</a>
+                        <a href="terms.html">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 eSIM Myanmar. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r155/three.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
