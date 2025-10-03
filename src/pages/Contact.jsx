@@ -1,182 +1,234 @@
-import { motion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { gsap } from 'gsap'
 import './Pages.css'
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: ''
+  })
+  const heroRef = useRef()
+  const formRef = useRef()
+
+  useEffect(() => {
+    gsap.fromTo(heroRef.current,
+      { opacity: 0, y: 50 },
+      { opacity: 1, y: 0, duration: 1, ease: "power3.out" }
+    )
+
+    gsap.fromTo(formRef.current,
+      { opacity: 0, x: -50 },
+      { 
+        opacity: 1, 
+        x: 0, 
+        duration: 0.8, 
+        delay: 0.3,
+        ease: "power3.out" 
+      }
+    )
+  }, [])
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     // Handle form submission
-    console.log('Form submitted')
+    console.log('Form submitted:', formData)
+    alert('Thank you for your message! We will get back to you soon.')
+  }
+
+  const handleAppleBusinessChat = () => {
+    // Apple Business Chat integration
+    if (window.AppleBusinessChat) {
+      window.AppleBusinessChat.open('eSIM Myanmar')
+    } else {
+      alert('Apple Business Chat not available on this device')
+    }
   }
 
   return (
-    <div className="page">
-      <motion.section 
-        className="page-hero"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
+    <div className="page-container">
+      <section className="page-hero" ref={heroRef}>
         <div className="container">
-          <div className="glass-panel hero-panel">
-            <h1>Contact Our Team</h1>
-            <p>Get in touch with Myanmar's leading eSIM technology experts</p>
+          <div className="hero-content glass-panel">
+            <h1 className="page-title">
+              Contact <span className="gradient-text">eSIM Myanmar</span>
+            </h1>
+            <p className="page-subtitle">
+              Get in touch with our team for support, partnerships, or inquiries
+            </p>
           </div>
         </div>
-      </motion.section>
+      </section>
 
-      <section className="page-content">
+      <section className="page-content section">
         <div className="container">
-          <div className="contact-layout">
-            <motion.div 
-              className="contact-form-container"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <div className="glass-panel contact-form-panel">
-                <h2>Send Us a Message</h2>
-                <form className="contact-form" onSubmit={handleSubmit}>
-                  <div className="form-row">
-                    <div className="form-group">
-                      <label htmlFor="firstName">First Name</label>
-                      <input type="text" id="firstName" name="firstName" required />
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="lastName">Last Name</label>
-                      <input type="text" id="lastName" name="lastName" required />
-                    </div>
-                  </div>
-                  
+          <div className="contact-grid">
+            {/* Contact Form */}
+            <div className="contact-form-section" ref={formRef}>
+              <div className="contact-form glass-panel">
+                <h2>Send us a Message</h2>
+                <form onSubmit={handleSubmit}>
                   <div className="form-group">
-                    <label htmlFor="email">Email Address</label>
-                    <input type="email" id="email" name="email" required />
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Your Name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      required
+                    />
                   </div>
-                  
                   <div className="form-group">
-                    <label htmlFor="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" />
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Your Email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                    />
                   </div>
-                  
                   <div className="form-group">
-                    <label htmlFor="company">Company (Optional)</label>
-                    <input type="text" id="company" name="company" />
+                    <input
+                      type="tel"
+                      name="phone"
+                      placeholder="Your Phone Number"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                    />
                   </div>
-                  
                   <div className="form-group">
-                    <label htmlFor="inquiry">Inquiry Type</label>
-                    <select id="inquiry" name="inquiry" required>
-                      <option value="">Select an option</option>
-                      <option value="general">General Information</option>
-                      <option value="technical">Technical Support</option>
-                      <option value="business">Business Partnership</option>
-                      <option value="enterprise">Enterprise Solutions</option>
-                      <option value="billing">Billing & Accounts</option>
+                    <select
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <option value="">Select Subject</option>
+                      <option value="general">General Inquiry</option>
+                      <option value="support">Technical Support</option>
+                      <option value="partnership">Partnership</option>
+                      <option value="billing">Billing</option>
                       <option value="other">Other</option>
                     </select>
                   </div>
-                  
                   <div className="form-group">
-                    <label htmlFor="message">Message</label>
-                    <textarea id="message" name="message" rows="5" required placeholder="Please describe your inquiry in detail..."></textarea>
+                    <textarea
+                      name="message"
+                      placeholder="Your Message"
+                      rows="5"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      required
+                    ></textarea>
                   </div>
-                  
-                  <button type="submit" className="btn-primary form-submit">Send Message</button>
+                  <button type="submit" className="btn-primary">Send Message</button>
                 </form>
               </div>
-            </motion.div>
+            </div>
 
-            <div className="contact-info-container">
-              <motion.div 
-                className="glass-panel contact-info-panel"
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-              >
-                <h3>Get In Touch</h3>
+            {/* Contact Information */}
+            <div className="contact-info-section">
+              <div className="contact-info glass-panel">
+                <h2>Get in Touch</h2>
                 <div className="contact-methods">
                   <div className="contact-method">
-                    <div className="method-icon">Email</div>
-                    <div className="method-details">
-                      <h4>Email Support</h4>
+                    <div className="method-icon">📧</div>
+                    <div className="method-info">
+                      <h3>Email</h3>
                       <p>info@esim.com.mm</p>
-                      <span className="response-time">Response within 2 hours</span>
                     </div>
                   </div>
-                  
                   <div className="contact-method">
-                    <div className="method-icon">Phone</div>
-                    <div className="method-details">
-                      <h4>Phone Support</h4>
-                      <p>+95 965 0000172</p>
-                      <span className="response-time">Available 24/7</span>
+                    <div className="method-icon">📞</div>
+                    <div className="method-info">
+                      <h3>Phone</h3>
+                      <p>+95 9650000172</p>
                     </div>
                   </div>
-                  
                   <div className="contact-method">
-                    <div className="method-icon">Social</div>
-                    <div className="method-details">
-                      <h4>Social Media</h4>
+                    <div className="method-icon">📍</div>
+                    <div className="method-info">
+                      <h3>Address</h3>
+                      <p>Parami Road, No-70/A, Ward (16)<br />Hlaing Township, Yangon, Myanmar</p>
+                    </div>
+                  </div>
+                  <div className="contact-method">
+                    <div className="method-icon">📱</div>
+                    <div className="method-info">
+                      <h3>Social Media</h3>
                       <p>@eSIMMyanmar</p>
-                      <span className="response-time">Follow for updates</span>
                     </div>
                   </div>
                 </div>
-              </motion.div>
 
-              <motion.div 
-                className="glass-panel business-hours-panel"
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.1 }}
-                viewport={{ once: true }}
-              >
-                <h3>Business Hours</h3>
-                <div className="hours-list">
-                  <div className="hours-item">
-                    <span className="day">Monday - Friday</span>
-                    <span className="time">9:00 AM - 6:00 PM</span>
-                  </div>
-                  <div className="hours-item">
-                    <span className="day">Saturday</span>
-                    <span className="time">9:00 AM - 1:00 PM</span>
-                  </div>
-                  <div className="hours-item">
-                    <span className="day">Sunday</span>
-                    <span className="time">Emergency Support Only</span>
-                  </div>
+                <div className="business-chat">
+                  <button 
+                    className="btn-secondary"
+                    onClick={handleAppleBusinessChat}
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3.04 1.05 4.35L2 22l5.65-1.05C9.96 21.64 11.46 22 13 22h7c1.1 0 2-.9 2-2V12c0-5.52-4.48-10-10-10z"/>
+                    </svg>
+                    Apple Business Chat
+                  </button>
                 </div>
-                
-                <div className="emergency-note">
-                  <h4>Emergency Support</h4>
-                  <p>For critical technical issues, our emergency support team is available 24/7 via phone and email.</p>
-                </div>
-              </motion.div>
+              </div>
 
-              <motion.div 
-                className="glass-panel location-panel"
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                viewport={{ once: true }}
-              >
-                <h3>Office Location</h3>
-                <div className="location-info">
-                  <p>eSIM Myanmar Headquarters</p>
-                  <p>Parami Road, No-70/A, Ward (16)</p>
-                  <p>Hlaing Township, Yangon</p>
-                  <p>Myanmar</p>
+              {/* Apple Map Integration */}
+              <div className="map-section glass-panel">
+                <h3>Find Us</h3>
+                <div className="apple-map">
+                  <iframe
+                    src="https://maps.apple.com/embed?ll=16.8409,96.1735&z=15&t=m"
+                    width="100%"
+                    height="300"
+                    style={{ border: 0, borderRadius: '10px' }}
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="eSIM Myanmar Location"
+                  ></iframe>
                 </div>
-                
-                <div className="map-placeholder">
-                  <div className="map-content">
-                    <h4>Visit Our Office</h4>
-                    <p>Schedule an appointment for in-person consultations and technical demonstrations</p>
-                    <button className="btn-secondary map-btn">Get Directions</button>
-                  </div>
-                </div>
-              </motion.div>
+                <button className="btn-secondary map-btn">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                  </svg>
+                  Open in Apple Maps
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Office Hours */}
+          <div className="office-hours glass-panel">
+            <h2>Office Hours</h2>
+            <div className="hours-grid">
+              <div className="hours-item">
+                <span className="day">Monday - Friday</span>
+                <span className="time">9:00 AM - 6:00 PM</span>
+              </div>
+              <div className="hours-item">
+                <span className="day">Saturday</span>
+                <span className="time">10:00 AM - 4:00 PM</span>
+              </div>
+              <div className="hours-item">
+                <span className="day">Sunday</span>
+                <span className="time">Closed</span>
+              </div>
+              <div className="hours-item">
+                <span className="day">24/7 Support</span>
+                <span className="time">Online Chat & Email</span>
+              </div>
             </div>
           </div>
         </div>

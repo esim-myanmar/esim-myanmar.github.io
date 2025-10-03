@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import ParticleSystem from './components/ParticleSystem'
+import ThadingyutLanterns from './components/ThadingyutLanterns'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -16,7 +16,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <ParticleSystem />
+        <ThadingyutLanterns />
         <Navbar />
         <main>
           <Routes>

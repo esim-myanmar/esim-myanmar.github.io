@@ -1,97 +1,139 @@
-import { motion } from 'framer-motion'
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './Pages.css'
 
+gsap.registerPlugin(ScrollTrigger)
+
 const About = () => {
+  const heroRef = useRef()
+  const contentRef = useRef()
+
+  useEffect(() => {
+    gsap.fromTo(heroRef.current,
+      { opacity: 0, y: 50 },
+      { opacity: 1, y: 0, duration: 1, ease: "power3.out" }
+    )
+
+    gsap.fromTo(contentRef.current.children,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: contentRef.current,
+          start: "top 80%"
+        }
+      }
+    )
+  }, [])
+
   return (
-    <div className="page">
-      <motion.section 
-        className="page-hero"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
+    <div className="page-container">
+      <section className="page-hero" ref={heroRef}>
         <div className="container">
-          <div className="glass-panel hero-panel">
-            <h1>About eSIM Myanmar</h1>
-            <p>Pioneering Myanmar's digital transformation through advanced connectivity solutions</p>
+          <div className="hero-content glass-panel">
+            <h1 className="page-title">
+              About <span className="gradient-text">eSIM Myanmar</span>
+            </h1>
+            <p className="page-subtitle">
+              Pioneering the future of connectivity in Myanmar with cutting-edge eSIM technology
+            </p>
           </div>
         </div>
-      </motion.section>
+      </section>
 
-      <section className="page-content">
+      <section className="page-content section" ref={contentRef}>
         <div className="container">
           <div className="content-grid">
-            <motion.div 
-              className="glass-panel content-card"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
+            <div className="content-card glass-panel">
               <h2>Our Mission</h2>
-              <p>To revolutionize Myanmar's telecommunications landscape by delivering cutting-edge eSIM technology that enables instant, secure, and seamless digital connectivity for individuals, businesses, and enterprises across the nation.</p>
-            </motion.div>
+              <p>
+                At eSIM Myanmar, we're revolutionizing telecommunications by providing seamless, 
+                secure, and instant connectivity solutions. Our mission is to eliminate the barriers 
+                of traditional SIM cards and empower Myanmar with the freedom of digital connectivity.
+              </p>
+            </div>
 
-            <motion.div 
-              className="glass-panel content-card"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
-            >
-              <h2>Our Vision</h2>
-              <p>To establish Myanmar as a regional leader in digital connectivity innovation, bridging traditional telecommunications with next-generation embedded SIM technology for a fully connected future.</p>
-            </motion.div>
+            <div className="content-card glass-panel">
+              <h2>Innovation First</h2>
+              <p>
+                We leverage the latest in IoT technology, 5G networks, and smart device integration 
+                to deliver unparalleled connectivity experiences. Our platform supports everything 
+                from smartphones to industrial IoT devices.
+              </p>
+            </div>
 
-            <motion.div 
-              className="glass-panel content-card"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <h2>Core Values</h2>
-              <div className="values-list">
-                <div className="value-item">
-                  <h4>Innovation Excellence</h4>
-                  <p>Continuously advancing technology to meet evolving connectivity needs</p>
-                </div>
-                <div className="value-item">
-                  <h4>Security First</h4>
-                  <p>Implementing enterprise-grade security protocols for all communications</p>
-                </div>
-                <div className="value-item">
-                  <h4>Customer Centricity</h4>
-                  <p>Delivering exceptional service experiences tailored to Myanmar's unique requirements</p>
-                </div>
+            <div className="content-card glass-panel">
+              <h2>Global Reach</h2>
+              <p>
+                With partnerships across 190+ countries, we ensure Myanmar stays connected to the world. 
+                Our extensive roaming agreements and local partnerships provide seamless international 
+                connectivity.
+              </p>
+            </div>
+
+            <div className="content-card glass-panel">
+              <h2>Security & Trust</h2>
+              <p>
+                Built on enterprise-grade security protocols with end-to-end encryption, biometric 
+                authentication, and secure element technology. Your data and communications are 
+                protected by bank-level security.
+              </p>
+            </div>
+          </div>
+
+          <div className="company-info glass-panel">
+            <h2>Company Information</h2>
+            <div className="info-grid">
+              <div className="info-item">
+                <strong>Founded:</strong> 2023
               </div>
-            </motion.div>
-
-            <motion.div 
-              className="glass-panel content-card"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              viewport={{ once: true }}
-            >
-              <h2>Technology Leadership</h2>
-              <p>Our platform leverages the latest in embedded SIM technology, featuring advanced encryption, multi-profile management, and seamless carrier switching capabilities.</p>
-              
-              <div className="tech-highlights">
-                <div className="highlight-item">
-                  <span className="highlight-label">Network Coverage</span>
-                  <span className="highlight-value">Nationwide 5G/4G</span>
-                </div>
-                <div className="highlight-item">
-                  <span className="highlight-label">Security Standard</span>
-                  <span className="highlight-value">Military Grade</span>
-                </div>
-                <div className="highlight-item">
-                  <span className="highlight-label">Activation Speed</span>
-                  <span className="highlight-value">Under 60 Seconds</span>
-                </div>
+              <div className="info-item">
+                <strong>Headquarters:</strong> Yangon, Myanmar
               </div>
-            </motion.div>
+              <div className="info-item">
+                <strong>Address:</strong> Parami Road, No-70/A, Ward (16), Hlaing Township, Yangon, Myanmar
+              </div>
+              <div className="info-item">
+                <strong>Email:</strong> info@esim.com.mm
+              </div>
+              <div className="info-item">
+                <strong>Phone:</strong> +95 9650000172
+              </div>
+              <div className="info-item">
+                <strong>Social:</strong> @eSIMMyanmar
+              </div>
+            </div>
+          </div>
+
+          <div className="values-section">
+            <h2 className="section-title">Our Values</h2>
+            <div className="values-grid">
+              <div className="value-item glass-panel">
+                <div className="value-icon">🚀</div>
+                <h3>Innovation</h3>
+                <p>Constantly pushing the boundaries of what's possible in telecommunications</p>
+              </div>
+              <div className="value-item glass-panel">
+                <div className="value-icon">🤝</div>
+                <h3>Trust</h3>
+                <p>Building lasting relationships through transparency and reliability</p>
+              </div>
+              <div className="value-item glass-panel">
+                <div className="value-icon">🌍</div>
+                <h3>Accessibility</h3>
+                <p>Making advanced connectivity available to everyone in Myanmar</p>
+              </div>
+              <div className="value-item glass-panel">
+                <div className="value-icon">🔒</div>
+                <h3>Security</h3>
+                <p>Protecting our customers' data with the highest security standards</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

@@ -1,83 +1,43 @@
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
 import './Pages.css'
 
 const FAQ = () => {
-  const [openItems, setOpenItems] = useState({})
+  const [openItems, setOpenItems] = useState(new Set())
+  const heroRef = useRef()
+
+  useEffect(() => {
+    gsap.fromTo(heroRef.current,
+      { opacity: 0, y: 50 },
+      { opacity: 1, y: 0, duration: 1, ease: "power3.out" }
+    )
+  }, [])
 
   const toggleItem = (index) => {
-    setOpenItems(prev => ({
-      ...prev,
-      [index]: !prev[index]
-    }))
+    const newOpenItems = new Set(openItems)
+    if (newOpenItems.has(index)) {
+      newOpenItems.delete(index)
+    } else {
+      newOpenItems.add(index)
+    }
+    setOpenItems(newOpenItems)
   }
 
-  const faqData = [
+  const faqs = [
     {
-      category: "General",
+      category: "Getting Started",
       questions: [
         {
-          question: "What is an eSIM?",
-          answer: "An eSIM (embedded SIM) is a digital SIM card that's built into your device. It allows you to activate a cellular plan without using a physical SIM card, making it easier to switch carriers and manage multiple phone numbers."
+          q: "What is an eSIM?",
+          a: "An eSIM (embedded SIM) is a digital SIM card that allows you to activate a cellular plan without using a physical SIM card. It's built into your device and can be programmed remotely."
         },
         {
-          question: "How is eSIM different from a physical SIM card?",
-          answer: "Unlike physical SIM cards, eSIMs are embedded directly into your device's hardware. They can be programmed remotely, allow multiple carrier profiles, and eliminate the need for physical SIM card swapping."
+          q: "How do I activate my eSIM?",
+          a: "Simply scan the QR code we provide, or enter the activation details manually in your device settings. The process takes just a few minutes."
         },
         {
-          question: "Is eSIM secure?",
-          answer: "Yes, eSIM technology includes advanced security features like RSA-4096 encryption and tamper-resistant hardware, making it more secure than traditional SIM cards."
-        }
-      ]
-    },
-    {
-      category: "Compatibility",
-      questions: [
-        {
-          question: "Which devices support eSIM?",
-          answer: "Most modern smartphones including iPhone XS and newer, Samsung Galaxy S20 and newer, Google Pixel 3 and newer, and many other premium devices support eSIM technology."
-        },
-        {
-          question: "How do I check if my device supports eSIM?",
-          answer: "You can check by going to your device settings and looking for 'Add Cellular Plan' or 'Add Mobile Plan' options. You can also dial *#06# to see if an EID number is displayed."
-        },
-        {
-          question: "Can I use eSIM and physical SIM together?",
-          answer: "Yes, most eSIM-compatible devices support dual SIM functionality, allowing you to use both an eSIM and a physical SIM card simultaneously."
-        }
-      ]
-    },
-    {
-      category: "Activation & Setup",
-      questions: [
-        {
-          question: "How long does eSIM activation take?",
-          answer: "eSIM activation typically takes less than 60 seconds once you scan the QR code. The entire process from purchase to activation usually takes under 5 minutes."
-        },
-        {
-          question: "What do I need to activate an eSIM?",
-          answer: "You need an eSIM-compatible device, a stable internet connection (Wi-Fi or mobile data), and the QR code or activation details provided after purchase."
-        },
-        {
-          question: "Can I transfer my existing number to eSIM?",
-          answer: "Yes, you can port your existing phone number to eSIM. The process is similar to traditional number porting and typically takes 24-48 hours to complete."
-        }
-      ]
-    },
-    {
-      category: "Plans & Pricing",
-      questions: [
-        {
-          question: "What eSIM plans are available?",
-          answer: "We offer various plans including prepaid and postpaid options with different data allowances, voice minutes, and SMS packages to suit different needs and budgets."
-        },
-        {
-          question: "Can I change my eSIM plan?",
-          answer: "Yes, you can upgrade, downgrade, or change your eSIM plan at any time through our customer portal or by contacting customer support."
-        },
-        {
-          question: "Do you offer international roaming?",
-          answer: "Yes, our eSIM plans include international roaming options with competitive rates for voice, SMS, and data usage while traveling abroad."
+          q: "Is my device compatible?",
+          a: "Most modern smartphones, tablets, and smartwatches support eSIM. Check our compatibility page for a full list of supported devices."
         }
       ]
     },
@@ -85,101 +45,115 @@ const FAQ = () => {
       category: "Technical Support",
       questions: [
         {
-          question: "What if I lose my device with eSIM?",
-          answer: "If you lose your device, contact us immediately to suspend your eSIM service. You can then activate a new eSIM profile on your replacement device using the same phone number."
+          q: "Can I use multiple eSIMs on one device?",
+          a: "Yes, many devices support multiple eSIM profiles. You can switch between them or use them simultaneously for different purposes."
         },
         {
-          question: "Can I use eSIM without internet?",
-          answer: "While you need internet connectivity for initial eSIM activation and setup, once activated, your eSIM works like a regular SIM card and doesn't require internet for basic cellular functions."
+          q: "What happens if I lose my device?",
+          a: "Your eSIM can be remotely deactivated for security. Contact our support team immediately, and we'll help you transfer your service to a new device."
         },
         {
-          question: "How do I get technical support?",
-          answer: "Our technical support team is available 24/7 via phone (+95 965 0000172), email (info@esim.com.mm), or through our online chat system."
+          q: "Does eSIM work with 5G?",
+          a: "Yes, our eSIM service is fully compatible with 5G networks where available, providing you with the fastest possible speeds."
+        }
+      ]
+    },
+    {
+      category: "Billing & Plans",
+      questions: [
+        {
+          q: "What payment methods do you accept?",
+          a: "We accept Apple Pay, NFC payments, credit/debit cards, bank transfers, cryptocurrency, and QR code payments for maximum convenience."
+        },
+        {
+          q: "Can I change my plan anytime?",
+          a: "Yes, you can upgrade, downgrade, or change your plan at any time through our app or website. Changes take effect immediately."
+        },
+        {
+          q: "Are there any roaming charges?",
+          a: "Our plans include roaming in 190+ countries. Check your specific plan details for coverage areas and any applicable fair usage policies."
+        }
+      ]
+    },
+    {
+      category: "IoT & Business",
+      questions: [
+        {
+          q: "Do you support IoT devices?",
+          a: "Yes, we provide eSIM solutions for IoT devices including smart home systems, automotive applications, and industrial monitoring equipment."
+        },
+        {
+          q: "Is there an API for developers?",
+          a: "Yes, we offer comprehensive APIs for developers to integrate eSIM functionality into their applications and IoT solutions."
+        },
+        {
+          q: "What about enterprise solutions?",
+          a: "We provide enterprise-grade eSIM solutions with bulk management, custom billing, and dedicated support for businesses of all sizes."
         }
       ]
     }
   ]
 
   return (
-    <div className="page">
-      <motion.section 
-        className="page-hero"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
+    <div className="page-container">
+      <section className="page-hero" ref={heroRef}>
         <div className="container">
-          <div className="glass-panel hero-panel">
-            <h1>Frequently Asked Questions</h1>
-            <p>Find answers to common questions about eSIM technology and our services</p>
+          <div className="hero-content glass-panel">
+            <h1 className="page-title">
+              Frequently Asked <span className="gradient-text">Questions</span>
+            </h1>
+            <p className="page-subtitle">
+              Find answers to common questions about eSIM Myanmar services
+            </p>
           </div>
         </div>
-      </motion.section>
+      </section>
 
-      <section className="page-content">
+      <section className="page-content section">
         <div className="container">
-          <div className="faq-content">
-            {faqData.map((category, categoryIndex) => (
-              <motion.div 
-                key={categoryIndex}
-                className="faq-category"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <h2 className="category-title">{category.category}</h2>
-                <div className="glass-panel faq-panel">
-                  {category.questions.map((item, questionIndex) => {
-                    const itemKey = `${categoryIndex}-${questionIndex}`
-                    const isOpen = openItems[itemKey]
-                    
-                    return (
-                      <div key={questionIndex} className="faq-item">
-                        <button 
-                          className="faq-question"
-                          onClick={() => toggleItem(itemKey)}
+          {faqs.map((category, categoryIndex) => (
+            <div key={categoryIndex} className="faq-category glass-panel">
+              <h2 className="category-title">{category.category}</h2>
+              <div className="faq-items">
+                {category.questions.map((faq, questionIndex) => {
+                  const itemIndex = `${categoryIndex}-${questionIndex}`
+                  const isOpen = openItems.has(itemIndex)
+                  
+                  return (
+                    <div key={questionIndex} className="faq-item">
+                      <button
+                        className={`faq-question ${isOpen ? 'open' : ''}`}
+                        onClick={() => toggleItem(itemIndex)}
+                      >
+                        <span>{faq.q}</span>
+                        <svg 
+                          className={`faq-icon ${isOpen ? 'rotated' : ''}`}
+                          width="20" 
+                          height="20" 
+                          viewBox="0 0 24 24" 
+                          fill="currentColor"
                         >
-                          <span>{item.question}</span>
-                          <span className={`faq-icon ${isOpen ? 'open' : ''}`}>+</span>
-                        </button>
-                        <AnimatePresence>
-                          {isOpen && (
-                            <motion.div
-                              className="faq-answer"
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: 'auto', opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.3 }}
-                            >
-                              <p>{item.answer}</p>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
+                          <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+                        </svg>
+                      </button>
+                      <div className={`faq-answer ${isOpen ? 'open' : ''}`}>
+                        <p>{faq.a}</p>
                       </div>
-                    )
-                  })}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div 
-            className="contact-support"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <div className="glass-panel support-panel">
-              <h2>Still Have Questions?</h2>
-              <p>Our expert support team is here to help you with any questions about eSIM technology or our services.</p>
-              <div className="support-actions">
-                <button className="btn-primary">Contact Support</button>
-                <button className="btn-secondary">Live Chat</button>
+                    </div>
+                  )
+                })}
               </div>
             </div>
-          </motion.div>
+          ))}
+
+          <div className="faq-contact glass-panel">
+            <h2>Still have questions?</h2>
+            <p>Our support team is here to help you 24/7</p>
+            <div className="contact-options">
+              <button className="btn-primary">Contact Support</button>
+              <button className="btn-secondary">Live Chat</button>
+            </div>
+          </div>
         </div>
       </section>
     </div>
