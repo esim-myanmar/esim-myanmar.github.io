@@ -1,23 +1,39 @@
-import { useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import ParticleSystem from './components/ParticleSystem'
 import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import Features from './components/Features'
-import Technology from './components/Technology'
 import Footer from './components/Footer'
+import Home from './pages/Home'
+import About from './pages/About'
+import Compatibility from './pages/Compatibility'
+import HowItWorks from './pages/HowItWorks'
+import FAQ from './pages/FAQ'
+import Contact from './pages/Contact'
+import Partners from './pages/Partners'
+import Privacy from './pages/Privacy'
+import Terms from './pages/Terms'
 
 function App() {
   return (
-    <div className="App">
-      <ParticleSystem />
-      <Navbar />
-      <main>
-        <Hero />
-        <Features />
-        <Technology />
-      </main>
-      <Footer />
-    </div>
+    <Router>
+      <div className="App">
+        <ParticleSystem />
+        <Navbar />
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/compatibility" element={<Compatibility />} />
+            <Route path="/how-it-works" element={<HowItWorks />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/partners" element={<Partners />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   )
 }
 
