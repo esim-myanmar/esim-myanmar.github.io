@@ -94,7 +94,7 @@ const FAQ = () => {
         },
         {
           question: "How do I get technical support?",
-          answer: "Our technical support team is available 24/7 via phone (+95 9650000172), email (info@esim.com.mm), or through our online chat system."
+          answer: "Our technical support team is available 24/7 via phone (+95 965 0000172), email (info@esim.com.mm), or through our online chat system."
         }
       ]
     }

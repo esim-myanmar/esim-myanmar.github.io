@@ -15,7 +15,7 @@ const Footer = () => {
             <h4>Contact Information</h4>
             <div className="contact-info">
               <p>Email: info@esim.com.mm</p>
-              <p>Phone: +95 9650000172</p>
+              <p>Phone: +95 965 0000172</p>
               <p>Social: @eSIMMyanmar</p>
               <p>Address: Parami Road, No-70/A, Ward (16)</p>
               <p>Hlaing Township, Yangon, Myanmar</p>

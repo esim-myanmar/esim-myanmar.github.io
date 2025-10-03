@@ -174,7 +174,7 @@ const Terms = () => {
                 <p>For questions about these Terms of Service, please contact us:</p>
                 <div className="contact-details">
                   <p><strong>Email:</strong> legal@esim.com.mm</p>
-                  <p><strong>Phone:</strong> +95 9650000172</p>
+                  <p><strong>Phone:</strong> +95 965 0000172</p>
                   <p><strong>Address:</strong> Parami Road, No-70/A, Ward (16), Hlaing Township, Yangon, Myanmar</p>
                 </div>
               </div>

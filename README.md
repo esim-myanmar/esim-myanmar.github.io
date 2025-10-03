@@ -45,8 +45,8 @@ The CI workflow will run on pushes to main and nexorasim/patch-52082. It install
 ## Contact
 
 - Email: info@esim.com.mm
-- Phone: 09650000172
-- Social: @eSIMMyanmarr
+- Phone: +95 965 0000172
+- Social: @eSIMMyanmar
 
 ## Notes
 

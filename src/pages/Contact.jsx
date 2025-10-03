@@ -109,7 +109,7 @@ const Contact = () => {
                     <div className="method-icon">Phone</div>
                     <div className="method-details">
                       <h4>Phone Support</h4>
-                      <p>+95 9650000172</p>
+                      <p>+95 965 0000172</p>
                       <span className="response-time">Available 24/7</span>
                     </div>
                   </div>
